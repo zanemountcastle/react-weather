@@ -1,7 +1,21 @@
-//exports an object to configure what wepack does
+var webpack = require('webpack');
 
+//exports an object to configure what wepack does
 module.exports = {
-  entry: './app/app.jsx',
+  entry: [
+    'script!jquery/dist/jquery.min.js',
+    'script!foundation-sites/dist/foundation.min.js', //script! makes modules packaged for webpack
+    './app/app.jsx'
+  ],
+  externals:{
+    jquery: 'jQuery'
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery'
+    })
+  ],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
